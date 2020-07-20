@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "506184825309",
+    "firebase_url": "https://listandshare-9199c.firebaseio.com",
+    "project_id": "listandshare-9199c",
+    "storage_bucket": "listandshare-9199c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506184825309:android:e003576285dabe8c285e34",
+        "android_client_info": {
+          "package_name": "br.rauloliveira.listandshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506184825309-km2l134mjrvpgtr8inniefhpoc259t79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZEKRkMdRuNrjT47G7H2eyBeCX9ZCM74c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506184825309-km2l134mjrvpgtr8inniefhpoc259t79.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
