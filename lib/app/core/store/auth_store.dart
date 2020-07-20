@@ -8,7 +8,7 @@ part 'auth_store.g.dart';
 class AuthStore = _AuthStoreBase with _$AuthStore;
 
 abstract class _AuthStoreBase with Store {
-  final IAuthRepository _authRepository = Modular.get();
+  final _authRepository = Modular.get<IAuthRepository>();
 
   _AuthStoreBase() {
     _authRepository.getUser().then(setUser);
@@ -24,6 +24,11 @@ abstract class _AuthStoreBase with Store {
   Future<FirebaseUser> loginWithGoogle() async {
     user = await _authRepository.getGoogleLogin();
     return user;
+  }
+
+  @action
+  Future logout() async {
+    await _authRepository.logout();
   }
 
 }
