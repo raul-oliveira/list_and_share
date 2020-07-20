@@ -1,4 +1,4 @@
-package com.example.list_and_share
+package br.rauloliveira.listandshare
 
 import io.flutter.embedding.android.FlutterActivity
 
