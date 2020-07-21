@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_store.dart';
+part of 'auth_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'auth_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$AuthStore on _AuthStoreBase, Store {
-  final _$userAtom = Atom(name: '_AuthStoreBase.user');
+mixin _$AuthController on _AuthControllerBase, Store {
+  final _$userAtom = Atom(name: '_AuthControllerBase.user');
 
   @override
   FirebaseUser get user {
@@ -25,24 +25,31 @@ mixin _$AuthStore on _AuthStoreBase, Store {
   }
 
   final _$loginWithGoogleAsyncAction =
-      AsyncAction('_AuthStoreBase.loginWithGoogle');
+      AsyncAction('_AuthControllerBase.loginWithGoogle');
 
   @override
   Future<FirebaseUser> loginWithGoogle() {
     return _$loginWithGoogleAsyncAction.run(() => super.loginWithGoogle());
   }
 
-  final _$_AuthStoreBaseActionController =
-      ActionController(name: '_AuthStoreBase');
+  final _$logoutAsyncAction = AsyncAction('_AuthControllerBase.logout');
+
+  @override
+  Future<dynamic> logout() {
+    return _$logoutAsyncAction.run(() => super.logout());
+  }
+
+  final _$_AuthControllerBaseActionController =
+      ActionController(name: '_AuthControllerBase');
 
   @override
   dynamic setUser(FirebaseUser value) {
-    final _$actionInfo = _$_AuthStoreBaseActionController.startAction(
-        name: '_AuthStoreBase.setUser');
+    final _$actionInfo = _$_AuthControllerBaseActionController.startAction(
+        name: '_AuthControllerBase.setUser');
     try {
       return super.setUser(value);
     } finally {
-      _$_AuthStoreBaseActionController.endAction(_$actionInfo);
+      _$_AuthControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

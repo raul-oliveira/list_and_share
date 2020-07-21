@@ -3,22 +3,28 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:list_and_share/app/core/repositories/interfaces/auth_repository_interface.dart';
 import 'package:mobx/mobx.dart';
 
-part 'auth_store.g.dart';
+part 'auth_controller.g.dart';
 
-class AuthStore = _AuthStoreBase with _$AuthStore;
+class AuthController = _AuthControllerBase with _$AuthController;
 
-abstract class _AuthStoreBase with Store {
+abstract class _AuthControllerBase with Store {
   final _authRepository = Modular.get<IAuthRepository>();
 
-  _AuthStoreBase() {
+  _AuthControllerBase() {
     _authRepository.getUser().then(setUser);
   }
+
+  @observable
+  AuthStatus status = AuthStatus.loading;
 
   @observable
   FirebaseUser user;
 
   @action
-  setUser(FirebaseUser value) => user = value;
+  setUser(FirebaseUser value) {
+    user = value;
+    status = user == null ? AuthStatus.loggedOut : AuthStatus.loggedIn;
+  }
 
   @action
   Future<FirebaseUser> loginWithGoogle() async {
@@ -30,5 +36,6 @@ abstract class _AuthStoreBase with Store {
   Future logout() async {
     await _authRepository.logout();
   }
-
 }
+
+enum AuthStatus { loading, loggedIn, loggedOut }
