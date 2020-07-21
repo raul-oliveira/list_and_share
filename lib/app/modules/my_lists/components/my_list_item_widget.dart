@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class MyListItemWidget extends StatelessWidget {
   const MyListItemWidget({Key key}) : super(key: key);
@@ -15,7 +16,9 @@ class MyListItemWidget extends StatelessWidget {
       ),
       subtitle: Text('70% - Item 1, Item 2, Item 3, Item 4, Item 5...'),
       trailing: Icon(Icons.delete),
-      onTap: () {},
+      onTap: () {
+        Modular.to.pushReplacementNamed('/detail');
+      },
     );
   }
 }

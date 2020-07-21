@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:list_and_share/app/modules/my_lists/components/list_item_widget.dart';
 
 import 'my_list_item_widget.dart';
 
