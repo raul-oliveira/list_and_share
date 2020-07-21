@@ -21,7 +21,7 @@ class _SplashPageState extends State<SplashPage> {
     disposer = autorun((_) {
       if (_auth.status == AuthStatus.loggedIn) {
         Modular.to.pushReplacementNamed('/home');
-      } else if (_auth.status == AuthStatus.loggedOut) {
+      } else {
         Modular.to.pushReplacementNamed('/login');
       }
     });

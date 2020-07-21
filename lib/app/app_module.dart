@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:list_and_share/app/app_widget.dart';
 
 import 'core/auth/auth_controller.dart';
-import 'modules/home/home_module.dart';
+// import 'modules/home/home_module.dart';
+import 'modules/my_lists/my_lists_module.dart';
 
 class AppModule extends MainModule {
   @override
@@ -21,9 +22,10 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
-        Router('/', child: (_, args) => SplashPage()),
-        Router('/home', module: HomeModule()),
-        Router('/login', module: LoginModule()),
+        // Router('/', child: (_, args) => SplashPage()),
+        Router('/', module: MyListsModule()),
+        Router('/login',
+            module: LoginModule(), transition: TransitionType.noTransition),
       ];
 
   @override
