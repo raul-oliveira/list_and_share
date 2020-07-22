@@ -29,13 +29,14 @@ class _MyListsPageState extends ModularState<MyListsPage, MyListsController> {
             child: Text('Erro'),
           );
         }
-        if (controller.myLists?.value == null) {
+        if (controller.myLists?.value == null || controller.loading?.value == true) {
           return Center(
             child: CircularProgressIndicator(),
           );
         }
-        var list = controller.myLists?.value;
-        return MyListsWidget(list: list);
+        return MyListsWidget(
+          controller: controller,
+        );
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

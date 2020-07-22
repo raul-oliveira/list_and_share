@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:list_and_share/app/modules/my_lists/models/list_model.dart';
+import 'package:list_and_share/app/modules/my_lists/my_lists_controller.dart';
 
 class MyListItemWidget extends StatelessWidget {
-  const MyListItemWidget({Key key, this.item}) : super(key: key);
-  
+  const MyListItemWidget({Key key, this.item, this.controller})
+      : super(key: key);
+
   final ListModel item;
-  
+  final MyListsController controller;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -18,7 +23,16 @@ class MyListItemWidget extends StatelessWidget {
         ),
       ),
       subtitle: Text('${item.percentConcluded}% - ${item.briefDescription}...'),
-      trailing: Icon(Icons.delete),
+      trailing: IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: () async {
+          controller.setLoading(true);
+          controller.delete(item.id).whenComplete(() {
+            sleep(Duration(seconds: 2));
+            controller.setLoading(false);
+          });
+        },
+      ),
       onTap: () {
         Modular.to.pushReplacementNamed('/detail');
       },

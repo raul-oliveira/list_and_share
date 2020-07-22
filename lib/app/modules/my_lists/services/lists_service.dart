@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:list_and_share/app/modules/my_lists/interfaces/lists_service_interface.dart';
 import 'package:list_and_share/app/modules/my_lists/models/list_model.dart';
 
@@ -23,8 +25,7 @@ class ListsService implements IListsService {
 
   @override
   Future<bool> delete(int id) {
-    // TODO: implement delete
-    throw UnimplementedError();
+    _list.removeWhere((element) => id == element.id);
   }
 
   @override

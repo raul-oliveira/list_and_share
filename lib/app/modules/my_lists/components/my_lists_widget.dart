@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:list_and_share/app/modules/my_lists/models/list_model.dart';
+import 'package:list_and_share/app/modules/my_lists/my_lists_controller.dart';
 
 import 'my_list_item_widget.dart';
 
 class MyListsWidget extends StatefulWidget {
-  MyListsWidget({Key key, this.list}) : super(key: key);
+  MyListsWidget({Key key, this.controller}) : super(key: key);
 
-  final List<ListModel> list;
+  final MyListsController controller;
 
   @override
-  _MyListsWidgetState createState() => _MyListsWidgetState(list);
+  _MyListsWidgetState createState() => _MyListsWidgetState(controller);
 }
 
 class _MyListsWidgetState extends State<MyListsWidget> {
-  _MyListsWidgetState(this.list);
+  _MyListsWidgetState(this.controller);
 
-  final List<ListModel> list;
+  final MyListsController controller;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: list.length,
+      itemCount: controller.myLists?.value?.length,
       itemBuilder: (BuildContext context, int index) {
-        return MyListItemWidget(item: list[index]);
+        return MyListItemWidget(item: controller.myLists?.value[index], controller: controller);
       },
     );
   }
