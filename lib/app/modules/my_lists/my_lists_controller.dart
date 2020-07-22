@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:list_and_share/app/modules/my_lists/services/lists_service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -14,19 +15,15 @@ abstract class _MyListsControllerBase with Store {
     getAll();
   }
 
+  final newlistNameController = TextEditingController();
+
   final ListsService _listsService;
 
   @observable
-  ObservableFuture<bool> loading;
+  bool loading = false;
 
   @observable
   ObservableFuture<List<ListModel>> myLists;
-
-  @action
-  Future setLoading(bool value) async {
-    var future = Future<bool>(() => value);
-    loading = future.asObservable();
-  }
 
   @action
   Future getAll() async {
@@ -34,7 +31,8 @@ abstract class _MyListsControllerBase with Store {
   }
 
   @action
-  Future addList(String listName) async {
+  Future addList() async {
+    var listName = newlistNameController.value.text;
     await _listsService.create(new ListModel(
         title: listName, percentConcluded: 0, briefDescription: 'Empty'));
     await getAll();
@@ -42,8 +40,11 @@ abstract class _MyListsControllerBase with Store {
 
   @action
   Future delete(int id) async {
-    sleep(Duration(seconds: 3));
-    await _listsService.delete(id);
-    await getAll();
+    loading = true;
+    Future.delayed(Duration(seconds: 1)).then((value) async {
+      _listsService.delete(id);
+      await getAll();
+      loading = false;
+    });
   }
 }

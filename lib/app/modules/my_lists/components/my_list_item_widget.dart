@@ -25,12 +25,8 @@ class MyListItemWidget extends StatelessWidget {
       subtitle: Text('${item.percentConcluded}% - ${item.briefDescription}...'),
       trailing: IconButton(
         icon: Icon(Icons.delete),
-        onPressed: () async {
-          controller.setLoading(true);
-          controller.delete(item.id).whenComplete(() {
-            sleep(Duration(seconds: 2));
-            controller.setLoading(false);
-          });
+        onPressed: () {
+          controller.delete(item.id);
         },
       ),
       onTap: () {

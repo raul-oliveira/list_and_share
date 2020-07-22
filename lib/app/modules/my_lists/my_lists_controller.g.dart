@@ -12,13 +12,13 @@ mixin _$MyListsController on _MyListsControllerBase, Store {
   final _$loadingAtom = Atom(name: '_MyListsControllerBase.loading');
 
   @override
-  ObservableFuture<bool> get loading {
+  bool get loading {
     _$loadingAtom.reportRead();
     return super.loading;
   }
 
   @override
-  set loading(ObservableFuture<bool> value) {
+  set loading(bool value) {
     _$loadingAtom.reportWrite(value, super.loading, () {
       super.loading = value;
     });
@@ -39,14 +39,6 @@ mixin _$MyListsController on _MyListsControllerBase, Store {
     });
   }
 
-  final _$setLoadingAsyncAction =
-      AsyncAction('_MyListsControllerBase.setLoading');
-
-  @override
-  Future<dynamic> setLoading(bool value) {
-    return _$setLoadingAsyncAction.run(() => super.setLoading(value));
-  }
-
   final _$getAllAsyncAction = AsyncAction('_MyListsControllerBase.getAll');
 
   @override
@@ -57,8 +49,8 @@ mixin _$MyListsController on _MyListsControllerBase, Store {
   final _$addListAsyncAction = AsyncAction('_MyListsControllerBase.addList');
 
   @override
-  Future<dynamic> addList(String listName) {
-    return _$addListAsyncAction.run(() => super.addList(listName));
+  Future<dynamic> addList() {
+    return _$addListAsyncAction.run(() => super.addList());
   }
 
   final _$deleteAsyncAction = AsyncAction('_MyListsControllerBase.delete');
