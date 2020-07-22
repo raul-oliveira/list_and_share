@@ -1,4 +1,6 @@
+import 'package:list_and_share/app/modules/my_lists/interfaces/lists_service_interface.dart';
 import 'package:list_and_share/app/modules/my_lists/pages/list_detail/list_detail_page.dart';
+import 'package:list_and_share/app/modules/my_lists/services/lists_service.dart';
 
 import 'pages/list_detail/list_detail_controller.dart';
 import 'my_lists_controller.dart';
@@ -8,8 +10,9 @@ import 'my_lists_page.dart';
 class MyListsModule extends ChildModule {
   @override
   List<Bind> get binds => [
+        Bind<IListsService>((i) => ListsService()),
         Bind((i) => ListDetailController()),
-        Bind((i) => MyListsController()),
+        Bind((i) => MyListsController(i.get())),
       ];
 
   @override

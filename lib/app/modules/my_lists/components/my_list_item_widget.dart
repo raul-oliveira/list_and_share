@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:list_and_share/app/modules/my_lists/models/list_model.dart';
 
 class MyListItemWidget extends StatelessWidget {
-  const MyListItemWidget({Key key}) : super(key: key);
-
+  const MyListItemWidget({Key key, this.item}) : super(key: key);
+  
+  final ListModel item;
+  
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Text(
-          'List one',
+          item.title,
           style: TextStyle(fontSize: 16),
         ),
       ),
-      subtitle: Text('70% - Item 1, Item 2, Item 3, Item 4, Item 5...'),
+      subtitle: Text('${item.percentConcluded}% - ${item.briefDescription}...'),
       trailing: Icon(Icons.delete),
       onTap: () {
         Modular.to.pushReplacementNamed('/detail');

@@ -1,0 +1,3 @@
+enum ListItemStateEnum { 
+  toDo, done
+}
