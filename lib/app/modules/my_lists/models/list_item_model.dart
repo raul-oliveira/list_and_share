@@ -1,28 +1,27 @@
 import 'dart:convert';
 
-import 'package:list_and_share/app/modules/my_lists/enums/list_item_state_enum.dart';
-
 import 'loggin_attrs_model.dart';
 
 class ListItemModel extends LogginAttrsModel {
   int id;
   String description;
-  ListItemStateEnum state;
+  bool checked;
+
   ListItemModel({
     this.id,
     this.description,
-    this.state,
+    this.checked,
   });
 
   ListItemModel copyWith({
     int id,
     String description,
-    ListItemStateEnum state,
+    bool checked,
   }) {
     return ListItemModel(
       id: id ?? this.id,
       description: description ?? this.description,
-      state: state ?? this.state,
+      checked: checked ?? this.checked,
     );
   }
 
@@ -30,17 +29,17 @@ class ListItemModel extends LogginAttrsModel {
     return {
       'id': id,
       'description': description,
-      'state': state.hashCode,
+      'checked': checked,
     };
   }
 
   static ListItemModel fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-  
+
     return ListItemModel(
       id: map['id'],
       description: map['description'],
-      state: map['state'],
+      checked: map['checked'],
     );
   }
 
@@ -49,18 +48,19 @@ class ListItemModel extends LogginAttrsModel {
   static ListItemModel fromJson(String source) => fromMap(json.decode(source));
 
   @override
-  String toString() => 'ListItemModel(id: $id, description: $description, state: $state)';
+  String toString() =>
+      'ListItemModel(id: $id, description: $description, checked: $checked)';
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
-  
+
     return o is ListItemModel &&
-      o.id == id &&
-      o.description == description &&
-      o.state == state;
+        o.id == id &&
+        o.description == description &&
+        o.checked == checked;
   }
 
   @override
-  int get hashCode => id.hashCode ^ description.hashCode ^ state.hashCode;
+  int get hashCode => id.hashCode ^ description.hashCode ^ checked.hashCode;
 }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:list_and_share/app/modules/my_lists/services/lists_service.dart';
 import 'package:mobx/mobx.dart';

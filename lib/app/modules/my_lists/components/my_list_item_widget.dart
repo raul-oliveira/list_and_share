@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:list_and_share/app/modules/my_lists/models/list_model.dart';
@@ -30,7 +28,7 @@ class MyListItemWidget extends StatelessWidget {
         },
       ),
       onTap: () {
-        Modular.to.pushReplacementNamed('/detail');
+        Modular.to.pushReplacementNamed('/detail/${item.id}');
       },
     );
   }

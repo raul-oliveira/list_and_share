@@ -1,3 +1,4 @@
+import 'package:list_and_share/app/core/auth/auth_controller.dart';
 import 'package:list_and_share/app/modules/my_lists/interfaces/lists_service_interface.dart';
 import 'package:list_and_share/app/modules/my_lists/pages/list_detail/list_detail_page.dart';
 import 'package:list_and_share/app/modules/my_lists/services/lists_service.dart';
@@ -11,14 +12,18 @@ class MyListsModule extends ChildModule {
   @override
   List<Bind> get binds => [
         Bind<IListsService>((i) => ListsService()),
-        Bind((i) => ListDetailController()),
+        Bind((i) => ListDetailController(i.get(), i.get())),
+        Bind((i) => AuthController()),
         Bind((i) => MyListsController(i.get())),
       ];
 
   @override
   List<Router> get routers => [
         Router(Modular.initialRoute, child: (_, args) => MyListsPage()),
-        Router('/detail', child: (_, args) => ListDetailPage()),
+        Router('/detail/:listId',
+            child: (_, args) => ListDetailPage(
+                  listId: args.params['listId'],
+                )),
       ];
 
   static Inject get to => Inject<MyListsModule>.of();
