@@ -13,14 +13,14 @@ class TodoListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(list.toString());
     return ListView.builder(
-        itemCount: list?.length ?? 0,
-        itemBuilder: (_, index) {
-          return TodoItemWidget(
-            item: list[index],
-            controller: controller,
-          );
-        });
+      itemCount: list?.length ?? 0,
+      itemBuilder: (_, index) {
+        return TodoItemWidget(
+          item: list[index],
+          controller: controller,
+        );
+      },
+    );
   }
 }

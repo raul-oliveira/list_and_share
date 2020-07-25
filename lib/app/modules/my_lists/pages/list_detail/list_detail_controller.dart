@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:list_and_share/app/core/auth/auth_controller.dart';
+import 'package:list_and_share/app/core/utils.dart';
 import 'package:list_and_share/app/modules/my_lists/models/list_item_model.dart';
 import 'package:list_and_share/app/modules/my_lists/models/list_model.dart';
 import 'package:list_and_share/app/modules/my_lists/services/lists_service.dart';
@@ -14,10 +14,11 @@ class ListDetailController = _ListDetailControllerBase
 abstract class _ListDetailControllerBase with Store {
   final ListsService service;
   final AuthController authController;
+  final Utils utils;
 
   TextEditingController todoItemDescriptionController = TextEditingController();
 
-  _ListDetailControllerBase(this.service, this.authController);
+  _ListDetailControllerBase(this.service, this.authController, this.utils);
 
   @observable
   ObservableFuture<ListModel> selectedList;
@@ -27,13 +28,8 @@ abstract class _ListDetailControllerBase with Store {
 
   @action
   Future<bool> onBackPressed() {
-    backToMyLists();
+    utils.backPage();
     return new Future<bool>(() => true);
-  }
-
-  @action
-  backToMyLists() {
-    Modular.to.popAndPushNamed('/');
   }
 
   @action

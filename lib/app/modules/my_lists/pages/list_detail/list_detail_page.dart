@@ -30,9 +30,18 @@ class _ListDetailPageState
       child: Scaffold(
         appBar: AppBar(
           leading: BackButton(
-            onPressed: controller.backToMyLists,
+            onPressed: controller.onBackPressed,
           ),
           title: Text(widget.title),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                Modular.to.pushNamed('/edit',
+                    arguments: controller.selectedList.value);
+              },
+            ),
+          ],
         ),
         body: Observer(
           builder: (_) {

@@ -16,7 +16,7 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
         Bind((i) => AppController()),
         Bind<IAuthRepository>((i) => AuthRepository()),
-        Bind((i) => AuthController()),
+        Bind((i) => AuthController())
       ];
 
   @override

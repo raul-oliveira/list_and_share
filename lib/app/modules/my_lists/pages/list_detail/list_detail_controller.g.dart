@@ -42,6 +42,14 @@ mixin _$ListDetailController on _ListDetailControllerBase, Store {
         .run(() => super.getSelectedList(listId));
   }
 
+  final _$removeTodoItemAsyncAction =
+      AsyncAction('_ListDetailControllerBase.removeTodoItem');
+
+  @override
+  Future removeTodoItem(int id) {
+    return _$removeTodoItemAsyncAction.run(() => super.removeTodoItem(id));
+  }
+
   final _$addTodoitemAsyncAction =
       AsyncAction('_ListDetailControllerBase.addTodoitem');
 
@@ -59,17 +67,6 @@ mixin _$ListDetailController on _ListDetailControllerBase, Store {
         .startAction(name: '_ListDetailControllerBase.onBackPressed');
     try {
       return super.onBackPressed();
-    } finally {
-      _$_ListDetailControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic backToMyLists() {
-    final _$actionInfo = _$_ListDetailControllerBaseActionController
-        .startAction(name: '_ListDetailControllerBase.backToMyLists');
-    try {
-      return super.backToMyLists();
     } finally {
       _$_ListDetailControllerBaseActionController.endAction(_$actionInfo);
     }

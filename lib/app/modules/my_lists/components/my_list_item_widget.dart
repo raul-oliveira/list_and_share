@@ -28,7 +28,7 @@ class MyListItemWidget extends StatelessWidget {
         },
       ),
       onTap: () {
-        Modular.to.pushReplacementNamed('/detail/${item.id}');
+        Modular.to.pushNamed('/detail/${item.id}');
       },
     );
   }
