@@ -1,4 +1,5 @@
 import 'package:list_and_share/app/modules/my_lists/enums/access_level_enum.dart';
+import 'package:list_and_share/app/modules/my_lists/interfaces/lists_repository_interface.dart';
 import 'package:list_and_share/app/modules/my_lists/interfaces/lists_service_interface.dart';
 import 'package:list_and_share/app/modules/my_lists/models/list_item_model.dart';
 import 'package:list_and_share/app/modules/my_lists/models/list_model.dart';
@@ -7,37 +8,39 @@ import 'package:list_and_share/app/modules/my_lists/models/user_model.dart';
 import 'package:uuid/uuid.dart';
 
 class ListsService implements IListsService {
-  ListsService() {
-    for (var i = 0; i < 10; i++) {
-      var todoitems = List<ListItemModel>();
-      var access = List<UserAccess>();
+  final IListsRepository listsRepository;
 
-      for (var j = 0; j < 6; j++) {
-        todoitems.add(ListItemModel(
-            description: 'Description $j', id: i + j, checked: false));
-      }
+  ListsService(this.listsRepository) {
+    // for (var i = 0; i < 10; i++) {
+    //   var todoitems = List<ListItemModel>();
+    //   var access = List<UserAccess>();
 
-      for (var j = 0; j < 2; j++) {
-        access.add(
-          UserAccess(
-            accessLevel: AccessLevelEnum.admin,
-            id: i + j,
-            user: UserModel(
-              email: 'mrraul65@gmail.com',
-              firstName: 'Raul ${i + j}',
-              id: i + j,
-            ),
-          ),
-        );
-      }
-      _list.add(new ListModel(
-          id: i,
-          title: 'titulo $i',
-          briefDescription: 'brief description $i',
-          percentConcluded: i / 10 * 100,
-          items: todoitems,
-          access: access));
-    }
+    //   for (var j = 0; j < 6; j++) {
+    //     todoitems.add(ListItemModel(
+    //         description: 'Description $j', id: i + j, checked: false));
+    //   }
+
+    //   for (var j = 0; j < 2; j++) {
+    //     access.add(
+    //       UserAccess(
+    //         accessLevel: AccessLevelEnum.admin,
+    //         id: i + j,
+    //         user: UserModel(
+    //           email: 'mrraul65@gmail.com',
+    //           firstName: 'Raul ${i + j}',
+    //           id: i + j,
+    //         ),
+    //       ),
+    //     );
+    //   }
+    //   _list.add(new ListModel(
+    //       id: i,
+    //       title: 'titulo $i',
+    //       briefDescription: 'brief description $i',
+    //       percentConcluded: i / 10 * 100,
+    //       items: todoitems,
+    //       access: access));
+    // }
   }
 
   List<ListModel> _list = new List<ListModel>();
@@ -56,11 +59,8 @@ class ListsService implements IListsService {
   }
 
   @override
-  Future<List<ListModel>> getAll() {
-    var future = new Future<List<ListModel>>(() {
-      return _list;
-    });
-    return future;
+  Stream<List<ListModel>> getAll() {
+    return listsRepository.getAll();
   }
 
   @override

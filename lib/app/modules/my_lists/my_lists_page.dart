@@ -23,12 +23,15 @@ class _MyListsPageState extends ModularState<MyListsPage, MyListsController> {
         title: Text(widget.title),
       ),
       body: Observer(builder: (_) {
-        if (controller.myLists?.error != null) {
+        if (controller.store?.myLists?.error != null) {
           return Center(
-            child: Text('Erro'),
+            child: FlatButton(
+              onPressed: () => controller.store.getAll(),
+              child: Text('Erro'),
+            ),
           );
         }
-        if (controller.loading || controller.myLists?.value == null) {
+        if (controller.loading || controller.store?.myLists?.value == null) {
           return Center(
             child: CircularProgressIndicator(),
           );

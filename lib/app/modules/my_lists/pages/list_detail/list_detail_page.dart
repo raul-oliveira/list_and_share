@@ -19,7 +19,7 @@ class ListDetailPage extends StatefulWidget {
 class _ListDetailPageState
     extends ModularState<ListDetailPage, ListDetailController> {
   _ListDetailPageState(int listId) {
-    controller.getSelectedList(listId);
+    controller.store.setSelectedList(listId);
   }
   //use 'controller' variable to access controller
 
@@ -37,22 +37,18 @@ class _ListDetailPageState
             IconButton(
               icon: Icon(Icons.edit),
               onPressed: () {
-                Modular.to.pushNamed('/edit',
-                    arguments: controller.selectedList.value);
+                Modular.to.pushNamed('myLists/edit');
               },
             ),
           ],
         ),
         body: Observer(
           builder: (_) {
-            if (controller?.selectedList?.error != null) {
-              return Text('Error.');
-            }
-            if (controller?.selectedList?.value == null) {
+            if (controller?.store?.selectedList == null) {
               return Center(child: CircularProgressIndicator());
             }
             return TodoListWidget(
-                controller: controller, list: controller.todoItems);
+                controller: controller, list: controller.store.todoItems);
           },
         ),
         bottomSheet: AddTodoItemWidget(controller),

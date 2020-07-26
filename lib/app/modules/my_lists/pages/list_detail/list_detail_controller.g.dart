@@ -9,39 +9,6 @@ part of 'list_detail_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ListDetailController on _ListDetailControllerBase, Store {
-  Computed<List<ListItemModel>> _$todoItemsComputed;
-
-  @override
-  List<ListItemModel> get todoItems => (_$todoItemsComputed ??=
-          Computed<List<ListItemModel>>(() => super.todoItems,
-              name: '_ListDetailControllerBase.todoItems'))
-      .value;
-
-  final _$selectedListAtom =
-      Atom(name: '_ListDetailControllerBase.selectedList');
-
-  @override
-  ObservableFuture<ListModel> get selectedList {
-    _$selectedListAtom.reportRead();
-    return super.selectedList;
-  }
-
-  @override
-  set selectedList(ObservableFuture<ListModel> value) {
-    _$selectedListAtom.reportWrite(value, super.selectedList, () {
-      super.selectedList = value;
-    });
-  }
-
-  final _$getSelectedListAsyncAction =
-      AsyncAction('_ListDetailControllerBase.getSelectedList');
-
-  @override
-  Future<dynamic> getSelectedList(int listId) {
-    return _$getSelectedListAsyncAction
-        .run(() => super.getSelectedList(listId));
-  }
-
   final _$removeTodoItemAsyncAction =
       AsyncAction('_ListDetailControllerBase.removeTodoItem');
 
@@ -86,8 +53,7 @@ mixin _$ListDetailController on _ListDetailControllerBase, Store {
   @override
   String toString() {
     return '''
-selectedList: ${selectedList},
-todoItems: ${todoItems}
+
     ''';
   }
 }

@@ -20,9 +20,11 @@ class _MyListsWidgetState extends State<MyListsWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: controller.myLists?.value?.length,
+      itemCount: controller.store?.myLists?.value?.length,
       itemBuilder: (BuildContext context, int index) {
-        return MyListItemWidget(item: controller.myLists?.value[index], controller: controller);
+        return MyListItemWidget(
+            item: controller.store?.myLists?.value[index],
+            controller: controller);
       },
     );
   }

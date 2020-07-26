@@ -18,7 +18,7 @@ abstract class _LoginControllerBase with Store {
 
     try {
       await auth.loginWithGoogle();
-      Modular.to.pushNamed('/home');
+      Modular.to.pushReplacementNamed('/myLists');
     } catch (e) {
       setLoading(false);
     }

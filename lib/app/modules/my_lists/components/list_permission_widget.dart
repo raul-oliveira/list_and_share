@@ -33,9 +33,9 @@ class _ListPermissionState extends State<ListPermission> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: controller.selectedList.access.length,
+        itemCount: controller.store.access.length,
         itemBuilder: (_, index) {
-          var item = controller.selectedList.access[index];
+          var item = controller.store.access[index];
           return ListTile(
             title: Text(item.user.email),
             trailing: Row(

@@ -24,28 +24,6 @@ mixin _$MyListsController on _MyListsControllerBase, Store {
     });
   }
 
-  final _$myListsAtom = Atom(name: '_MyListsControllerBase.myLists');
-
-  @override
-  ObservableFuture<List<ListModel>> get myLists {
-    _$myListsAtom.reportRead();
-    return super.myLists;
-  }
-
-  @override
-  set myLists(ObservableFuture<List<ListModel>> value) {
-    _$myListsAtom.reportWrite(value, super.myLists, () {
-      super.myLists = value;
-    });
-  }
-
-  final _$getAllAsyncAction = AsyncAction('_MyListsControllerBase.getAll');
-
-  @override
-  Future<dynamic> getAll() {
-    return _$getAllAsyncAction.run(() => super.getAll());
-  }
-
   final _$addListAsyncAction = AsyncAction('_MyListsControllerBase.addList');
 
   @override
@@ -63,8 +41,7 @@ mixin _$MyListsController on _MyListsControllerBase, Store {
   @override
   String toString() {
     return '''
-loading: ${loading},
-myLists: ${myLists}
+loading: ${loading}
     ''';
   }
 }

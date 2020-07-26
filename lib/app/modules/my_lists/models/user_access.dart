@@ -41,7 +41,7 @@ class UserAccess {
     return UserAccess(
       id: map['id'],
       user: UserModel.fromMap(map['user']),
-      accessLevel: AccessLevelEnum.values[int.parse(map['accessLevel'])],
+      accessLevel: AccessLevelEnum.values[map['accessLevel']],
     );
   }
 

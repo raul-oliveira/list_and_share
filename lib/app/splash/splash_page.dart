@@ -20,9 +20,9 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     disposer = autorun((_) {
       if (_auth.status == AuthStatus.loggedIn) {
-        Modular.to.pushNamed('/home');
-      } else {
-        Modular.to.pushNamed('/login');
+        Modular.to.pushReplacementNamed('/myLists');
+      } else if (_auth.status == AuthStatus.loggedOut) {
+        Modular.to.pushReplacementNamed('/login');
       }
     });
   }

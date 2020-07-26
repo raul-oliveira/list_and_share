@@ -9,21 +9,6 @@ part of 'list_edit_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ListEditController on _ListEditControllerBase, Store {
-  final _$selectedListAtom = Atom(name: '_ListEditControllerBase.selectedList');
-
-  @override
-  ListModel get selectedList {
-    _$selectedListAtom.reportRead();
-    return super.selectedList;
-  }
-
-  @override
-  set selectedList(ListModel value) {
-    _$selectedListAtom.reportWrite(value, super.selectedList, () {
-      super.selectedList = value;
-    });
-  }
-
   final _$isEditingAtom = Atom(name: '_ListEditControllerBase.isEditing');
 
   @override
@@ -80,24 +65,9 @@ mixin _$ListEditController on _ListEditControllerBase, Store {
     return _$updateListNameAsyncAction.run(() => super.updateListName());
   }
 
-  final _$_ListEditControllerBaseActionController =
-      ActionController(name: '_ListEditControllerBase');
-
-  @override
-  dynamic setSelectedList(ListModel value) {
-    final _$actionInfo = _$_ListEditControllerBaseActionController.startAction(
-        name: '_ListEditControllerBase.setSelectedList');
-    try {
-      return super.setSelectedList(value);
-    } finally {
-      _$_ListEditControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
-selectedList: ${selectedList},
 isEditing: ${isEditing}
     ''';
   }

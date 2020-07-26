@@ -2,26 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:list_and_share/app/modules/my_lists/components/list_permission_widget.dart';
-import 'package:list_and_share/app/modules/my_lists/models/list_model.dart';
 import 'list_edit_controller.dart';
 
 class ListEditPage extends StatefulWidget {
   final String title;
-  final ListModel item;
 
-  const ListEditPage({Key key, this.title = "List Settings", this.item})
-      : super(key: key);
+  const ListEditPage({Key key, this.title = "List Settings"}) : super(key: key);
 
   @override
-  _ListEditPageState createState() => _ListEditPageState(item);
+  _ListEditPageState createState() => _ListEditPageState();
 }
 
 class _ListEditPageState
     extends ModularState<ListEditPage, ListEditController> {
-  _ListEditPageState(ListModel item) {
-    controller.setSelectedList(item);
-  }
-
   FocusNode focusNode = FocusNode();
 
   @override
@@ -101,7 +94,7 @@ class _ListEditPageState
             ),
             new Expanded(
               child: Observer(builder: (context) {
-                if (controller.selectedList == null) {
+                if (controller.store.selectedList == null) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
