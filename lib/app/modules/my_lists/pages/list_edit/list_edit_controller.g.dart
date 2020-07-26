@@ -32,13 +32,12 @@ mixin _$ListEditController on _ListEditControllerBase, Store {
     return _$toggleEditingAsyncAction.run(() => super.toggleEditing());
   }
 
-  final _$setUserAcessLevelAsyncAction =
-      AsyncAction('_ListEditControllerBase.setUserAcessLevel');
+  final _$updateUserAcessAsyncAction =
+      AsyncAction('_ListEditControllerBase.updateUserAcess');
 
   @override
-  Future<dynamic> setUserAcessLevel(int accessId, AccessLevelEnum value) {
-    return _$setUserAcessLevelAsyncAction
-        .run(() => super.setUserAcessLevel(accessId, value));
+  Future<dynamic> updateUserAcess(UserAccess value) {
+    return _$updateUserAcessAsyncAction.run(() => super.updateUserAcess(value));
   }
 
   final _$addUserAsyncAction = AsyncAction('_ListEditControllerBase.addUser');
@@ -52,9 +51,9 @@ mixin _$ListEditController on _ListEditControllerBase, Store {
       AsyncAction('_ListEditControllerBase.removeUserAccess');
 
   @override
-  Future<dynamic> removeUserAccess(int accessId) {
+  Future<dynamic> removeUserAccess(UserAccess access) {
     return _$removeUserAccessAsyncAction
-        .run(() => super.removeUserAccess(accessId));
+        .run(() => super.removeUserAccess(access));
   }
 
   final _$updateListNameAsyncAction =

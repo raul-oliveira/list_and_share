@@ -6,22 +6,21 @@ import 'user_model.dart';
 
 class UserAccess {
   int id;
+  int parentId;
   UserModel user;
   AccessLevelEnum accessLevel;
 
-  UserAccess({
-    this.id,
-    this.user,
-    this.accessLevel,
-  });
+  UserAccess({this.id, this.user, this.accessLevel, this.parentId});
 
   UserAccess copyWith({
     int id,
+    int parentId,
     UserModel user,
     AccessLevelEnum accessLevel,
   }) {
     return UserAccess(
       id: id ?? this.id,
+      parentId: parentId ?? this.parentId,
       user: user ?? this.user,
       accessLevel: accessLevel ?? this.accessLevel,
     );
@@ -31,7 +30,8 @@ class UserAccess {
     return {
       'id': id,
       'user': user?.toMap(),
-      'accessLevel': accessLevel?.hashCode
+      'accessLevel': accessLevel?.index,
+      'parentId': parentId
     };
   }
 
@@ -40,6 +40,7 @@ class UserAccess {
 
     return UserAccess(
       id: map['id'],
+      parentId: map['parentId'],
       user: UserModel.fromMap(map['user']),
       accessLevel: AccessLevelEnum.values[map['accessLevel']],
     );
@@ -51,18 +52,20 @@ class UserAccess {
 
   @override
   String toString() =>
-      'UserAccess(id: $id, user: $user, accessLevel: $accessLevel)';
+      'UserAccess(id: $id, parentId: $parentId, user: $user, accessLevel: $accessLevel)';
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
     return o is UserAccess &&
+        o.parentId == parentId &&
         o.id == id &&
         o.user == user &&
         o.accessLevel == accessLevel;
   }
 
   @override
-  int get hashCode => id.hashCode ^ user.hashCode ^ accessLevel.hashCode;
+  int get hashCode =>
+      id.hashCode ^ parentId.hashCode ^ user.hashCode ^ accessLevel.hashCode;
 }

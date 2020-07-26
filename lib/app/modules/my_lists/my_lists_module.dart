@@ -19,14 +19,13 @@ class MyListsModule extends ChildModule {
   @override
   List<Bind> get binds => [
         Bind((i) => Utils()),
-        Bind<IListsService>((i) => ListsService(i.get())),
+        Bind((i) => AuthController()),
+        Bind<Firestore>((i) => Firestore.instance),
+        Bind<IListsService>((i) => ListsService(i.get(), i.get())),
         Bind<IListsRepository>((i) => ListsRepository(i.get(), i.get())),
         Bind((i) => ListDetailController(i.get(), i.get(), i.get(), i.get())),
-        Bind((i) => AuthController()),
         Bind((i) => MyListsController(i.get(), i.get())),
         Bind((i) => ListEditController(i.get(), i.get(), i.get())),
-        Bind<Firestore>((i) => Firestore.instance),
-        Bind((i) => AuthController()),
         Bind((i) => MyListsStore(i.get()))
       ];
 

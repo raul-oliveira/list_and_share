@@ -18,6 +18,9 @@ abstract class _MyListsStoreBase with Store {
   @observable
   int selectedListId;
 
+  @observable
+  int contador = 0;
+
   @computed
   ListModel get selectedList =>
       myLists.value.firstWhere((element) => element.id == selectedListId);
@@ -39,5 +42,17 @@ abstract class _MyListsStoreBase with Store {
   @action
   Future setSelectedList(int listId) async {
     selectedListId = listId;
+  }
+
+  @action
+  Future toggleCheckTodoItem(ListItemModel todoItem) async {
+    todoItem.checked = !todoItem.checked;
+    await _listsService.updateTodoItem(todoItem);
+    await incrementCount();
+  }
+
+  @action
+  Future incrementCount() async {
+    contador++;
   }
 }

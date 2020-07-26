@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:list_and_share/app/core/auth/auth_controller.dart';
 import 'package:list_and_share/app/modules/my_lists/enums/access_level_enum.dart';
 import 'package:list_and_share/app/modules/my_lists/interfaces/lists_repository_interface.dart';
 import 'package:list_and_share/app/modules/my_lists/interfaces/lists_service_interface.dart';
@@ -5,57 +7,28 @@ import 'package:list_and_share/app/modules/my_lists/models/list_item_model.dart'
 import 'package:list_and_share/app/modules/my_lists/models/list_model.dart';
 import 'package:list_and_share/app/modules/my_lists/models/user_access.dart';
 import 'package:list_and_share/app/modules/my_lists/models/user_model.dart';
-import 'package:uuid/uuid.dart';
 
 class ListsService implements IListsService {
   final IListsRepository listsRepository;
+  final AuthController authController;
 
-  ListsService(this.listsRepository) {
-    // for (var i = 0; i < 10; i++) {
-    //   var todoitems = List<ListItemModel>();
-    //   var access = List<UserAccess>();
-
-    //   for (var j = 0; j < 6; j++) {
-    //     todoitems.add(ListItemModel(
-    //         description: 'Description $j', id: i + j, checked: false));
-    //   }
-
-    //   for (var j = 0; j < 2; j++) {
-    //     access.add(
-    //       UserAccess(
-    //         accessLevel: AccessLevelEnum.admin,
-    //         id: i + j,
-    //         user: UserModel(
-    //           email: 'mrraul65@gmail.com',
-    //           firstName: 'Raul ${i + j}',
-    //           id: i + j,
-    //         ),
-    //       ),
-    //     );
-    //   }
-    //   _list.add(new ListModel(
-    //       id: i,
-    //       title: 'titulo $i',
-    //       briefDescription: 'brief description $i',
-    //       percentConcluded: i / 10 * 100,
-    //       items: todoitems,
-    //       access: access));
-    // }
-  }
-
-  List<ListModel> _list = new List<ListModel>();
+  ListsService(this.listsRepository, this.authController);
 
   @override
-  Future<ListModel> create(ListModel value) async {
-    _list.add(value);
-    return value;
+  Future<ListModel> createList(ListModel value) async {
+    value.access.add(UserAccess(
+        accessLevel: AccessLevelEnum.admin,
+        user: UserModel(email: authController.user.email)));
+    value.creationDate = Timestamp.now();
+    value.createdBy = authController.user.email;
+    value.lastChangeBy = authController.user.email;
+    value.lastChangeDate = Timestamp.now();
+    return await listsRepository.createList(value);
   }
 
   @override
-  Future<bool> delete(int id) async {
-    var prevLength = _list.length;
-    _list.removeWhere((element) => id == element.id);
-    return prevLength > _list.length;
+  Future<void> removeList(int id) async {
+    return await listsRepository.removeList(id);
   }
 
   @override
@@ -64,86 +37,50 @@ class ListsService implements IListsService {
   }
 
   @override
-  Future<ListModel> getById(int id) async {
-    var item =
-        _list.firstWhere((element) => element.id == id, orElse: () => null);
-    return item;
+  Future<void> updateList(ListModel value) async {
+    await listsRepository.updateList(value);
   }
 
   @override
-  Future<bool> update(ListModel value) async {
-    var index = _getListIndex(value.id);
-    if (index == -1) return false;
+  Future<ListItemModel> createTodoitem(ListItemModel value) async {
+    var userEmail = authController.user.email ?? '';
+    value.creationDate = Timestamp.now();
+    value.createdBy = userEmail;
+    value.lastChangeDate = Timestamp.now();
+    value.lastChangeBy = userEmail;
+    value.checked = false;
 
-    _list[index] = value;
-    return true;
+    return await listsRepository.createTodoItem(value);
   }
 
-  Future<ListItemModel> addTodoItem(int parentId, ListItemModel value) async {
-    var index = _getListIndex(parentId);
-    if (index == -1) return null;
-    var sum = _list[index].items.fold<int>(0, (p, e) => p + e.id);
-    value.id = sum + 1;
-    _list[index].items.add(value);
-    return value;
+  @override
+  Future<void> removeTodoItem(int parentId, int todoItemId) async {
+    await listsRepository.removeTodoItem(parentId, todoItemId);
   }
 
-  Future<bool> removeTodoItem(int parentId, int todoItemId) async {
-    var index = _getListIndex(parentId);
-    if (index == -1) return false;
-    var prevLength = _list[index].items.length;
-    _list[index].items.removeWhere((element) => todoItemId == element.id);
-    return prevLength > _list[index].items.length;
+  @override
+  Future<void> updateTodoItem(ListItemModel value) async {
+    value.lastChangeBy = authController.user.email;
+    value.lastChangeDate = Timestamp.now();
+    await listsRepository.updateTodoItem(value);
   }
 
-  Future<bool> updateTodoItem(int parentId, ListItemModel value) async {
-    var index = _getListIndex(parentId);
-    if (index == -1) return false;
-    var todoIndex =
-        _list[index].items.indexWhere((element) => element.id == value.id);
-    _list[index].items[todoIndex] = value;
-    return true;
+  @override
+  Future<void> updateAccessLevel(UserAccess value) async {
+    await listsRepository.updateUserAccess(value);
   }
 
-  int _getListIndex(int listId) {
-    return _list.indexWhere((element) => element.id == listId);
+  @override
+  Future<UserAccess> addUserAccess(int listId, String email) async {
+    return await listsRepository.createUserAccess(UserAccess(
+      accessLevel: AccessLevelEnum.write,
+      parentId: listId,
+      user: UserModel(email: email),
+    ));
   }
 
-  Future<bool> updateAccessLevel(
-    int listId,
-    int accessId,
-    AccessLevelEnum value,
-  ) async {
-    var index = _getListIndex(listId);
-    if (index == -1) return false;
-
-    var access =
-        _list[index].access.firstWhere((element) => element.id == accessId);
-    access.accessLevel = value;
-    return true;
-  }
-
-  Future<bool> addUserAccess(int listId, String email) async {
-    var index = _getListIndex(listId);
-    if (index == -1) return false;
-
-    _list[index].access.add(
-          UserAccess(
-            accessLevel: AccessLevelEnum.write,
-            id: Uuid().v1().hashCode,
-            user: UserModel(email: email),
-          ),
-        );
-    return true;
-  }
-
-  Future<bool> removeUserAccess(int listId, int accessId) async {
-    var index = _getListIndex(listId);
-    if (index == -1) return false;
-
-    var prevLength = _list[index].access.length;
-    _list[index].access.removeWhere((element) => element.id == accessId);
-
-    return prevLength > _list[index].access.length;
+  @override
+  Future<void> removeUserAccess(UserAccess access) async {
+    await listsRepository.removeUserAccess(access);
   }
 }

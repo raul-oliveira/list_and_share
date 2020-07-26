@@ -14,7 +14,7 @@ class TodoListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: list?.length ?? 0,
+      itemCount: list.length,
       itemBuilder: (_, index) {
         return TodoItemWidget(
           item: list[index],

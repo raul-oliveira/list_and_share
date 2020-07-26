@@ -19,6 +19,7 @@ class AddTodoItemWidget extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: TextField(
                 cursorColor: appBarTextColor,
+                focusNode: _controller.todoItemDescriptionFocus,
                 controller: _controller.todoItemDescriptionController,
                 onSubmitted: (text) async {
                   await _controller
@@ -37,8 +38,13 @@ class AddTodoItemWidget extends StatelessWidget {
               color: appBarTextColor,
             ),
             onPressed: () async {
-              await _controller.addTodoitem(ListItemModel(
-                  description: _controller.todoItemDescriptionController.text));
+              if (_controller.todoItemDescriptionController.text.length < 0)
+                await _controller.addTodoitem(ListItemModel(
+                    description:
+                        _controller.todoItemDescriptionController.text));
+              if (!_controller.todoItemDescriptionFocus.hasFocus) {
+                _controller.todoItemDescriptionFocus.requestFocus();
+              }
             },
           )
         ],

@@ -44,9 +44,14 @@ class _ListDetailPageState
         ),
         body: Observer(
           builder: (_) {
+            debugPrint(controller?.store?.contador.toString());
             if (controller?.store?.selectedList == null) {
               return Center(child: CircularProgressIndicator());
             }
+            if (controller?.store?.todoItems == null) {
+              return Center(child: CircularProgressIndicator());
+            }
+
             return TodoListWidget(
                 controller: controller, list: controller.store.todoItems);
           },

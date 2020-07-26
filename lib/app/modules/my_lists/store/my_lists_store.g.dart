@@ -68,6 +68,21 @@ mixin _$MyListsStore on _MyListsStoreBase, Store {
     });
   }
 
+  final _$contadorAtom = Atom(name: '_MyListsStoreBase.contador');
+
+  @override
+  int get contador {
+    _$contadorAtom.reportRead();
+    return super.contador;
+  }
+
+  @override
+  set contador(int value) {
+    _$contadorAtom.reportWrite(value, super.contador, () {
+      super.contador = value;
+    });
+  }
+
   final _$getAllAsyncAction = AsyncAction('_MyListsStoreBase.getAll');
 
   @override
@@ -84,11 +99,29 @@ mixin _$MyListsStore on _MyListsStoreBase, Store {
         .run(() => super.setSelectedList(listId));
   }
 
+  final _$toggleCheckTodoItemAsyncAction =
+      AsyncAction('_MyListsStoreBase.toggleCheckTodoItem');
+
+  @override
+  Future<dynamic> toggleCheckTodoItem(ListItemModel todoItem) {
+    return _$toggleCheckTodoItemAsyncAction
+        .run(() => super.toggleCheckTodoItem(todoItem));
+  }
+
+  final _$incrementCountAsyncAction =
+      AsyncAction('_MyListsStoreBase.incrementCount');
+
+  @override
+  Future<dynamic> incrementCount() {
+    return _$incrementCountAsyncAction.run(() => super.incrementCount());
+  }
+
   @override
   String toString() {
     return '''
 myLists: ${myLists},
 selectedListId: ${selectedListId},
+contador: ${contador},
 selectedList: ${selectedList},
 todoItems: ${todoItems},
 access: ${access},

@@ -14,17 +14,18 @@ class TodoItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        controller.checkTodoItem(item.id);
+        controller.store.toggleCheckTodoItem(item);
       },
       leading: IconButton(
-        icon: Icon(
-            item.checked ? Icons.check_box : Icons.check_box_outline_blank),
-        onPressed: () => {controller.checkTodoItem(item.id)},
+        icon: Icon(item?.checked == true
+            ? Icons.check_box
+            : Icons.check_box_outline_blank),
+        onPressed: () => {controller.store.toggleCheckTodoItem(item)},
       ),
       title: Text(
         item.description,
         style: TextStyle(
-            decoration: item.checked
+            decoration: item?.checked == true
                 ? TextDecoration.lineThrough
                 : TextDecoration.none),
       ),

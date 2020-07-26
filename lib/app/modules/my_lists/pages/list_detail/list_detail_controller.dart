@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:list_and_share/app/core/auth/auth_controller.dart';
 import 'package:list_and_share/app/core/utils.dart';
@@ -19,6 +18,7 @@ abstract class _ListDetailControllerBase with Store {
   final Utils utils;
 
   TextEditingController todoItemDescriptionController = TextEditingController();
+  FocusNode todoItemDescriptionFocus = FocusNode();
 
   _ListDetailControllerBase(
       this.service, this.authController, this.utils, this.store);
@@ -30,26 +30,14 @@ abstract class _ListDetailControllerBase with Store {
   }
 
   @action
-  checkTodoItem(int todoItemId) {
-    var el = store.todoItems.firstWhere((element) => element.id == todoItemId);
-    el.checked = !el.checked;
-  }
-
-  @action
-  removeTodoItem(int id) async {
+  Future removeTodoItem(int id) async {
     await service.removeTodoItem(store.selectedList.id, id);
   }
 
   @action
   Future addTodoitem(ListItemModel value) async {
-    var userEmail = authController.user.email ?? '';
-    value.creationDate = Timestamp.now();
-    value.createdBy = userEmail;
-    value.lastChangeDate = Timestamp.now();
-    value.lastChangeBy = userEmail;
-    value.checked = false;
-
-    await service.addTodoItem(store.selectedList.id, value);
+    value.parentId = store.selectedList.id;
+    await service.createTodoitem(value);
     todoItemDescriptionController.clear();
   }
 }

@@ -22,37 +22,14 @@ class ListModel {
     this.percentConcluded,
     this.briefDescription,
     this.items,
-    this.access,
     this.creationDate,
     this.createdBy,
     this.lastChangeDate,
     this.lastChangeBy,
-  });
-
-  ListModel copyWith({
-    int id,
-    String title,
-    double percentConcluded,
-    String briefDescription,
-    List<ListItemModel> items,
-    List<UserAccess> access,
-    Timestamp creationDate,
-    String createdBy,
-    Timestamp lastChangeDate,
-    String lastChangeBy,
+    this.access,
   }) {
-    return ListModel(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      percentConcluded: percentConcluded ?? this.percentConcluded,
-      briefDescription: briefDescription ?? this.briefDescription,
-      items: items ?? this.items,
-      access: access ?? this.access,
-      creationDate: creationDate ?? this.creationDate,
-      createdBy: createdBy ?? this.createdBy,
-      lastChangeDate: lastChangeDate ?? this.lastChangeDate,
-      lastChangeBy: lastChangeBy ?? this.lastChangeBy,
-    );
+    this.access ??= new List<UserAccess>();
+    this.items ??= new List<ListItemModel>();
   }
 
   Map<String, dynamic> toMap() {
@@ -82,9 +59,10 @@ class ListModel {
           map['items']?.map((x) => ListItemModel.fromMap(x))),
       access: List<UserAccess>.from(
           map['access']?.map((x) => UserAccess.fromMap(x))),
-      creationDate: map['creationDate'],
+      creationDate: Timestamp.fromMillisecondsSinceEpoch(map['creationDate']),
       createdBy: map['createdBy'],
-      lastChangeDate: map['lastChangeDate'],
+      lastChangeDate:
+          Timestamp.fromMillisecondsSinceEpoch(map['lastChangeDate']),
       lastChangeBy: map['lastChangeBy'],
     );
   }

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ListItemModel {
   int id;
+  int parentId;
   String description;
   bool checked;
   Timestamp creationDate;
@@ -13,6 +14,7 @@ class ListItemModel {
 
   ListItemModel({
     this.id,
+    this.parentId,
     this.description,
     this.checked,
     this.creationDate,
@@ -23,6 +25,7 @@ class ListItemModel {
 
   ListItemModel copyWith({
     int id,
+    int parentId,
     String description,
     bool checked,
     Timestamp creationDate,
@@ -32,6 +35,7 @@ class ListItemModel {
   }) {
     return ListItemModel(
       id: id ?? this.id,
+      parentId: parentId ?? this.parentId,
       description: description ?? this.description,
       checked: checked ?? this.checked,
       creationDate: creationDate ?? this.creationDate,
@@ -44,6 +48,7 @@ class ListItemModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'parentId': parentId,
       'description': description,
       'checked': checked,
       'creationDate': creationDate,
@@ -58,6 +63,7 @@ class ListItemModel {
 
     return ListItemModel(
       id: map['id'],
+      parentId: map['parentId'],
       description: map['description'],
       checked: map['checked'],
       creationDate: map['creationDate'],
@@ -82,6 +88,7 @@ class ListItemModel {
 
     return o is ListItemModel &&
         o.id == id &&
+        o.parentId == parentId &&
         o.description == description &&
         o.checked == checked &&
         o.creationDate == creationDate &&
@@ -93,6 +100,7 @@ class ListItemModel {
   @override
   int get hashCode {
     return id.hashCode ^
+        parentId.hashCode ^
         description.hashCode ^
         checked.hashCode ^
         creationDate.hashCode ^

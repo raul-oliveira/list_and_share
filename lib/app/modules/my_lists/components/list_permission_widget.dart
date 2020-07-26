@@ -46,17 +46,15 @@ class _ListPermissionState extends State<ListPermission> {
                   items: [...generateDropDownItens()],
                   onChanged: (value) {
                     setState(() {
-                      controller.setUserAcessLevel(
-                        item.id,
-                        AccessLevelEnum.values[value],
-                      );
+                      item.accessLevel = AccessLevelEnum.values[value];
+                      controller.updateUserAcess(item);
                     });
                   },
                 ),
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () {
-                    controller.removeUserAccess(item.id);
+                    controller.removeUserAccess(item);
                   },
                 ),
               ],
