@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:list_and_share/app/core/repositories/interfaces/auth_repository_interface.dart';
 import 'package:mobx/mobx.dart';
+
+import 'interfaces/auth_repository_interface.dart';
 
 part 'auth_controller.g.dart';
 

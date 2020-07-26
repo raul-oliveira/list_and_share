@@ -1,5 +1,3 @@
-import 'package:list_and_share/app/core/repositories/auth_repository.dart';
-import 'package:list_and_share/app/core/repositories/interfaces/auth_repository_interface.dart';
 import 'package:list_and_share/app/modules/login/login_module.dart';
 
 import 'app_controller.dart';
@@ -9,6 +7,8 @@ import 'package:list_and_share/app/app_widget.dart';
 
 import 'core/auth/auth_controller.dart';
 // import 'modules/home/home_module.dart';
+import 'core/auth/interfaces/auth_repository_interface.dart';
+import 'core/auth/repositories/auth_repository.dart';
 import 'modules/my_lists/my_lists_module.dart';
 
 class AppModule extends MainModule {

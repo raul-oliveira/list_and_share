@@ -79,13 +79,13 @@ class ListsService implements IListsService {
     return true;
   }
 
-  Future<bool> addTodoItem(int parentId, ListItemModel value) async {
+  Future<ListItemModel> addTodoItem(int parentId, ListItemModel value) async {
     var index = _getListIndex(parentId);
-    if (index == -1) return false;
+    if (index == -1) return null;
     var sum = _list[index].items.fold<int>(0, (p, e) => p + e.id);
     value.id = sum + 1;
     _list[index].items.add(value);
-    return true;
+    return value;
   }
 
   Future<bool> removeTodoItem(int parentId, int todoItemId) async {
@@ -99,9 +99,10 @@ class ListsService implements IListsService {
   Future<bool> updateTodoItem(int parentId, ListItemModel value) async {
     var index = _getListIndex(parentId);
     if (index == -1) return false;
-    var lengthPrev = _list[index].items.length;
-    _list[index].items.removeWhere((element) => element.id == value.id);
-    return lengthPrev > _list[index].items.length;
+    var todoIndex =
+        _list[index].items.indexWhere((element) => element.id == value.id);
+    _list[index].items[todoIndex] = value;
+    return true;
   }
 
   int _getListIndex(int listId) {

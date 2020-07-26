@@ -63,6 +63,23 @@ mixin _$ListEditController on _ListEditControllerBase, Store {
     return _$addUserAsyncAction.run(() => super.addUser());
   }
 
+  final _$removeUserAccessAsyncAction =
+      AsyncAction('_ListEditControllerBase.removeUserAccess');
+
+  @override
+  Future<dynamic> removeUserAccess(int accessId) {
+    return _$removeUserAccessAsyncAction
+        .run(() => super.removeUserAccess(accessId));
+  }
+
+  final _$updateListNameAsyncAction =
+      AsyncAction('_ListEditControllerBase.updateListName');
+
+  @override
+  Future<dynamic> updateListName() {
+    return _$updateListNameAsyncAction.run(() => super.updateListName());
+  }
+
   final _$_ListEditControllerBaseActionController =
       ActionController(name: '_ListEditControllerBase');
 
