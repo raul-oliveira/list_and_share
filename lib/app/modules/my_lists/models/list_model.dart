@@ -6,6 +6,7 @@ import 'list_item_model.dart';
 
 class ListModel {
   int id;
+  List<dynamic> accessHeader;
   String title;
   double percentConcluded;
   String briefDescription;
@@ -18,6 +19,7 @@ class ListModel {
 
   ListModel({
     this.id,
+    this.accessHeader,
     this.title,
     this.percentConcluded,
     this.briefDescription,
@@ -35,6 +37,7 @@ class ListModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'accessHeader': accessHeader,
       'title': title,
       'percentConcluded': percentConcluded,
       'briefDescription': briefDescription,
@@ -52,6 +55,7 @@ class ListModel {
 
     return ListModel(
       id: map['id'],
+      accessHeader: map['accessHeader'],
       title: map['title'],
       percentConcluded: map['percentConcluded'],
       briefDescription: map['briefDescription'],
@@ -73,7 +77,7 @@ class ListModel {
 
   @override
   String toString() {
-    return 'ListModel(id: $id, title: $title, percentConcluded: $percentConcluded, briefDescription: $briefDescription, items: $items, access: $access, creationDate: $creationDate, createdBy: $createdBy, lastChangeDate: $lastChangeDate, lastChangeBy: $lastChangeBy)';
+    return 'ListModel(id: $id, accessHeader: $accessHeader title: $title, percentConcluded: $percentConcluded, briefDescription: $briefDescription, items: $items, access: $access, creationDate: $creationDate, createdBy: $createdBy, lastChangeDate: $lastChangeDate, lastChangeBy: $lastChangeBy)';
   }
 
   @override
@@ -81,6 +85,7 @@ class ListModel {
     if (identical(this, o)) return true;
 
     return o is ListModel &&
+        o.accessHeader == accessHeader &&
         o.id == id &&
         o.title == title &&
         o.percentConcluded == percentConcluded &&
@@ -96,6 +101,7 @@ class ListModel {
   @override
   int get hashCode {
     return id.hashCode ^
+        accessHeader.hashCode ^
         title.hashCode ^
         percentConcluded.hashCode ^
         briefDescription.hashCode ^

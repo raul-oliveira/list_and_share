@@ -17,7 +17,7 @@ class ListsRepository implements IListsRepository {
   Stream<List<ListModel>> getAll() {
     return fireStore
         .collection(listCollection)
-        // .where('access', arrayContains: authController.user.email)
+        .where('accessHeader', arrayContains: authController.user.email)
         .snapshots()
         .map((query) => query.documents.map((doc) {
               return ListModel.fromMap(doc.data);
@@ -27,6 +27,22 @@ class ListsRepository implements IListsRepository {
   @override
   Future<ListModel> createList(ListModel value) async {
     value.id = await _getNextListId();
+
+    if (value.access != null && value.access.isNotEmpty) {
+      for (var i in value.access) {
+        i.id = await _getNextAccessId();
+        i.parentId = value.id;
+      }
+      value.accessHeader = _generateAccessHeaderFromUserAccess(value.access);
+    }
+
+    if (value.items != null && value.items.isNotEmpty) {
+      for (var i in value.items) {
+        i.id = await _getNextTodoId();
+        i.parentId = value.id;
+      }
+    }
+
     await fireStore
         .collection(listCollection)
         .document(value.id.toString())
@@ -103,6 +119,7 @@ class ListsRepository implements IListsRepository {
     items.add(value.toMap());
 
     await doc.setData({
+      'accessHeader': _generateAccessHeader(items),
       'access': [...items]
     }, merge: true);
     return value;
@@ -118,6 +135,7 @@ class ListsRepository implements IListsRepository {
     items.removeWhere((element) => element['id'] == value.id);
 
     await doc.setData({
+      'accessHeader': _generateAccessHeader(items),
       'access': [...items]
     }, merge: true);
     return value;
@@ -134,8 +152,28 @@ class ListsRepository implements IListsRepository {
     items[index] = value.toMap();
 
     await doc.setData({
+      'accessHeader': _generateAccessHeader(items),
       'access': [...items]
     }, merge: true);
+  }
+
+  List<String> _generateAccessHeader(List<dynamic> fireBaseResult) {
+    var ret = List<String>();
+
+    for (var i in fireBaseResult) {
+      ret.add(i['user']['email']);
+    }
+    return ret;
+  }
+
+  List<String> _generateAccessHeaderFromUserAccess(List<UserAccess> access) {
+    var ret = List<String>();
+
+    for (var i in access) {
+      ret.add(i.user.email);
+    }
+
+    return ret;
   }
 
   Future<int> _getNextId(String paramName) async {
