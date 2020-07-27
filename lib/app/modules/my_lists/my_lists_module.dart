@@ -23,10 +23,10 @@ class MyListsModule extends ChildModule {
         Bind<Firestore>((i) => Firestore.instance),
         Bind<IListsService>((i) => ListsService(i.get(), i.get())),
         Bind<IListsRepository>((i) => ListsRepository(i.get(), i.get())),
-        Bind((i) => ListDetailController(i.get(), i.get(), i.get(), i.get())),
+        Bind((i) => ListDetailController(i.get(), i.get(), i.get())),
         Bind((i) => MyListsController(i.get(), i.get())),
         Bind((i) => ListEditController(i.get(), i.get(), i.get())),
-        Bind((i) => MyListsStore(i.get()))
+        Bind((i) => MyListsStore(i.get(), i.get()))
       ];
 
   @override

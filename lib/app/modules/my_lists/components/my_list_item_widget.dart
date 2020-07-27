@@ -21,12 +21,14 @@ class MyListItemWidget extends StatelessWidget {
         ),
       ),
       subtitle: Text('${item.percentConcluded}% - ${item.briefDescription}...'),
-      trailing: IconButton(
-        icon: Icon(Icons.delete),
-        onPressed: () {
-          controller.delete(item.id);
-        },
-      ),
+      trailing: controller.store.createdByUser(item.createdBy)
+          ? IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                controller.delete(item.id);
+              },
+            )
+          : null,
       onTap: () {
         Modular.to.pushNamed('myLists/detail/${item.id}');
       },

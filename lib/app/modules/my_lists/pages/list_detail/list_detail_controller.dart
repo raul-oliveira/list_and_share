@@ -14,14 +14,12 @@ class ListDetailController = _ListDetailControllerBase
 abstract class _ListDetailControllerBase with Store {
   final MyListsStore store;
   final ListsService service;
-  final AuthController authController;
   final Utils utils;
 
   TextEditingController todoItemDescriptionController = TextEditingController();
   FocusNode todoItemDescriptionFocus = FocusNode();
 
-  _ListDetailControllerBase(
-      this.service, this.authController, this.utils, this.store);
+  _ListDetailControllerBase(this.service, this.utils, this.store);
 
   @action
   Future<bool> onBackPressed() {

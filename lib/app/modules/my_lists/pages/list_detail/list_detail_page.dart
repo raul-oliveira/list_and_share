@@ -29,19 +29,25 @@ class _ListDetailPageState
       onWillPop: controller.onBackPressed,
       child: Scaffold(
         appBar: AppBar(
-          leading: BackButton(
-            onPressed: controller.onBackPressed,
-          ),
-          title: Text(widget.title),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () {
-                Modular.to.pushNamed('myLists/edit');
-              },
+            leading: BackButton(
+              onPressed: controller.onBackPressed,
             ),
-          ],
-        ),
+            title: Text(widget.title),
+            actions: [
+              Observer(builder: (_) {
+                if (controller?.store?.isAdmin == null ||
+                    !controller.store.isAdmin) {
+                  return Container();
+                }
+
+                return IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Modular.to.pushNamed('myLists/edit');
+                  },
+                );
+              })
+            ]),
         body: Observer(
           builder: (_) {
             debugPrint(controller?.store?.contador.toString());

@@ -1,16 +1,21 @@
+import 'dart:async';
+
+import 'package:list_and_share/app/core/auth/auth_controller.dart';
+import 'package:list_and_share/app/modules/my_lists/enums/access_level_enum.dart';
+import 'package:list_and_share/app/modules/my_lists/interfaces/lists_service_interface.dart';
 import 'package:list_and_share/app/modules/my_lists/models/list_item_model.dart';
 import 'package:list_and_share/app/modules/my_lists/models/list_model.dart';
 import 'package:list_and_share/app/modules/my_lists/models/user_access.dart';
-import 'package:list_and_share/app/modules/my_lists/services/lists_service.dart';
 import 'package:mobx/mobx.dart';
 part 'my_lists_store.g.dart';
 
 class MyListsStore = _MyListsStoreBase with _$MyListsStore;
 
 abstract class _MyListsStoreBase with Store {
-  final ListsService _listsService;
+  final IListsService _listsService;
+  final AuthController _authController;
 
-  _MyListsStoreBase(this._listsService);
+  _MyListsStoreBase(this._listsService, this._authController);
 
   @observable
   ObservableStream<List<ListModel>> myLists;
@@ -34,6 +39,20 @@ abstract class _MyListsStoreBase with Store {
   @computed
   String get selectedListTitle => selectedList.title;
 
+  @computed
+  bool get canEdit {
+    return access.any((element) =>
+        element.accessLevel != AccessLevelEnum.read &&
+        element.user.email == _authController.user.email);
+  }
+
+  @computed
+  bool get isAdmin {
+    return access.any((element) =>
+        element.accessLevel == AccessLevelEnum.admin &&
+        element.user.email == _authController.user.email);
+  }
+
   @action
   Future getAll() async {
     myLists = _listsService.getAll().asObservable();
@@ -54,5 +73,9 @@ abstract class _MyListsStoreBase with Store {
   @action
   Future incrementCount() async {
     contador++;
+  }
+
+  bool createdByUser(String email) {
+    return email == _authController.user.email;
   }
 }
