@@ -28,7 +28,12 @@ class AddTodoItemWidget extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     hintText: 'Add new item',
-                    hintStyle: TextStyle(color: Colors.lightGreen)),
+                    hintStyle: TextStyle(
+                        color: Theme.of(context)
+                            .appBarTheme
+                            .textTheme
+                            ?.headline4
+                            ?.color)),
               ),
             ),
           ),

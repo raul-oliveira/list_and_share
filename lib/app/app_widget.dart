@@ -9,7 +9,7 @@ class AppWidget extends StatelessWidget {
       navigatorKey: Modular.navigatorKey,
       title: 'List and Share',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.orange,
       ),
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,
