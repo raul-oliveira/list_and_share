@@ -54,6 +54,16 @@ mixin _$AuthController on _AuthControllerBase, Store {
     return _$logoutAsyncAction.run(() => super.logout());
   }
 
+  final _$createUserWithEmailAndPasswordAsyncAction =
+      AsyncAction('_AuthControllerBase.createUserWithEmailAndPassword');
+
+  @override
+  Future<dynamic> createUserWithEmailAndPassword(
+      String email, String password) {
+    return _$createUserWithEmailAndPasswordAsyncAction
+        .run(() => super.createUserWithEmailAndPassword(email, password));
+  }
+
   final _$_AuthControllerBaseActionController =
       ActionController(name: '_AuthControllerBase');
 

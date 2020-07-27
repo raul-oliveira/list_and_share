@@ -37,6 +37,18 @@ mixin _$MyListsStore on _MyListsStoreBase, Store {
           Computed<String>(() => super.selectedListTitle,
               name: '_MyListsStoreBase.selectedListTitle'))
       .value;
+  Computed<bool> _$canEditComputed;
+
+  @override
+  bool get canEdit => (_$canEditComputed ??= Computed<bool>(() => super.canEdit,
+          name: '_MyListsStoreBase.canEdit'))
+      .value;
+  Computed<bool> _$isAdminComputed;
+
+  @override
+  bool get isAdmin => (_$isAdminComputed ??= Computed<bool>(() => super.isAdmin,
+          name: '_MyListsStoreBase.isAdmin'))
+      .value;
 
   final _$myListsAtom = Atom(name: '_MyListsStoreBase.myLists');
 
@@ -125,7 +137,9 @@ contador: ${contador},
 selectedList: ${selectedList},
 todoItems: ${todoItems},
 access: ${access},
-selectedListTitle: ${selectedListTitle}
+selectedListTitle: ${selectedListTitle},
+canEdit: ${canEdit},
+isAdmin: ${isAdmin}
     ''';
   }
 }

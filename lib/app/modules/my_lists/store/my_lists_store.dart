@@ -65,6 +65,8 @@ abstract class _MyListsStoreBase with Store {
 
   @action
   Future toggleCheckTodoItem(ListItemModel todoItem) async {
+    if (!canEdit) return;
+
     todoItem.checked = !todoItem.checked;
     await _listsService.updateTodoItem(todoItem);
     await incrementCount();
@@ -73,6 +75,11 @@ abstract class _MyListsStoreBase with Store {
   @action
   Future incrementCount() async {
     contador++;
+  }
+
+  @action
+  Future removeTodoItem(int id) async {
+    await _listsService.removeTodoItem(selectedList.id, id);
   }
 
   bool createdByUser(String email) {

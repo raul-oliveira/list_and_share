@@ -50,11 +50,8 @@ class _ListDetailPageState
             ]),
         body: Observer(
           builder: (_) {
-            debugPrint(controller?.store?.contador.toString());
-            if (controller?.store?.selectedList == null) {
-              return Center(child: CircularProgressIndicator());
-            }
-            if (controller?.store?.todoItems == null) {
+            if (controller?.store?.selectedList == null ||
+                controller?.store?.todoItems == null) {
               return Center(child: CircularProgressIndicator());
             }
 
@@ -62,7 +59,17 @@ class _ListDetailPageState
                 controller: controller, list: controller.store.todoItems);
           },
         ),
-        bottomSheet: AddTodoItemWidget(controller),
+        bottomSheet: Observer(
+          builder: (_) {
+            if (controller?.store?.canEdit == null ||
+                !controller.store.canEdit) {
+              return SizedBox(
+                height: 1,
+              );
+            }
+            return AddTodoItemWidget(controller);
+          },
+        ),
       ),
     );
   }
