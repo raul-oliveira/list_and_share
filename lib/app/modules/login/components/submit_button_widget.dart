@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 class SubmitButtonWidget extends StatelessWidget {
   final String title;
-  const SubmitButtonWidget({Key key, @required this.title}) : super(key: key);
+  final Function onSubmit;
+  const SubmitButtonWidget(
+      {Key key, @required this.title, @required this.onSubmit})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onSubmit,
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 15),

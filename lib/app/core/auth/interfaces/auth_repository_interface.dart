@@ -7,10 +7,10 @@ abstract class IAuthRepository {
 
   Future getFacebookLogin();
 
-  Future<String> getToken();
-
   Future logout();
 
   Future<FirebaseUser> createUserWithEmailAndPassword(
       String email, String password);
+
+  Future<FirebaseUser> getEmailPasswordLogin(String email, String password);
 }

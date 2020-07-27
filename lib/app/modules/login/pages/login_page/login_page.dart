@@ -22,6 +22,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends ModularState<LoginPage, LoginController> {
   //use 'controller' variable to access controller
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -44,10 +46,17 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     SizedBox(height: height * .2),
                     TitleWidget(),
                     SizedBox(height: 50),
-                    EmailPasswordWidget(username: false),
+                    EmailPasswordWidget(
+                      formKey: formKey,
+                      userEmailController: controller.userEmailController,
+                      userPasswordController: controller.userPasswordController,
+                    ),
                     SizedBox(height: 20),
                     SubmitButtonWidget(
                       title: 'Login',
+                      onSubmit: () {
+                        _submit(context);
+                      },
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10),
@@ -72,6 +81,32 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
             Positioned(top: 40, left: 0, child: BackButtonWidget()),
           ],
         ),
+      ),
+    );
+  }
+
+  _submit(BuildContext context) {
+    if (formKey.currentState.validate()) {
+      controller.loginWithEmailAndPassword().then((value) {
+        Modular.to.pushNamedAndRemoveUntil('myLists', (route) => false);
+      }).catchError((e) {
+        _showErrorDialog(context, e.message);
+      });
+    }
+  }
+
+  _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      child: AlertDialog(
+        title: Text('Error!'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () => Modular.to.pop(),
+          )
+        ],
       ),
     );
   }

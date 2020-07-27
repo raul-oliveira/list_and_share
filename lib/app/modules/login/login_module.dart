@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:list_and_share/app/core/auth/auth_controller.dart';
 import 'package:list_and_share/app/modules/login/pages/signup_page/signup_page.dart';
 
 import 'pages/login_page/login_controller.dart';
@@ -10,9 +11,10 @@ import 'pages/welcome_page/welcome_page.dart';
 class LoginModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => SignupController()),
+        Bind((i) => SignupController(i.get())),
         Bind((i) => WelcomeController()),
         Bind((i) => LoginController()),
+        Bind((i) => AuthController())
       ];
 
   @override

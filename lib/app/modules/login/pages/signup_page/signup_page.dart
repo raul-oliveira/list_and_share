@@ -19,6 +19,7 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends ModularState<SignupPage, SignupController> {
   @override
   Widget build(BuildContext context) {
+    controller.context = context;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
@@ -42,11 +43,21 @@ class _SignupPageState extends ModularState<SignupPage, SignupController> {
                     SizedBox(
                       height: 50,
                     ),
-                    EmailPasswordWidget(),
+                    EmailPasswordWidget(
+                      formKey: controller.formKey,
+                      userEmailController: controller.userEmailController,
+                      userNameController: controller.userNameController,
+                      userPasswordController: controller.userPasswordController,
+                    ),
                     SizedBox(
                       height: 20,
                     ),
-                    SubmitButtonWidget(title: 'Signup'),
+                    SubmitButtonWidget(
+                      title: 'Signup',
+                      onSubmit: () {
+                        _submit(context);
+                      },
+                    ),
                     SizedBox(height: height * .14),
                     LoginAccountLabelWidget(
                       isSignup: true,
@@ -60,5 +71,29 @@ class _SignupPageState extends ModularState<SignupPage, SignupController> {
         ),
       ),
     );
+  }
+
+  _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      child: AlertDialog(
+        title: Text('Error!'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () => Modular.to.pop(),
+          )
+        ],
+      ),
+    );
+  }
+
+  _submit(BuildContext context) async {
+    controller.signUp().then((value) {
+      Modular.to.pushNamedAndRemoveUntil('myLists', (route) => false);
+    }).catchError((e) {
+      _showErrorDialog(context, e.message);
+    });
   }
 }
