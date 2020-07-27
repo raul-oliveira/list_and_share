@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:list_and_share/app/core/auth/auth_controller.dart';
 import 'package:list_and_share/app/core/utils.dart';
 import 'package:list_and_share/app/modules/my_lists/models/list_item_model.dart';
 import 'package:list_and_share/app/modules/my_lists/services/lists_service.dart';

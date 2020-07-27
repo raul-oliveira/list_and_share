@@ -25,6 +25,20 @@ abstract class _LoginControllerBase with Store {
   }
 
   @action
+  Future loginWithFacebook() async {
+    setLoading(true);
+
+    try {
+      var user = await auth.loginWithFacebook();
+
+      if (user != null)
+        Modular.to.pushNamedAndRemoveUntil('/myLists', (route) => false);
+    } catch (e) {
+      setLoading(false);
+    }
+  }
+
+  @action
   setLoading(bool value) {
     loading = value;
   }

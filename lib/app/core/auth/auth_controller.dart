@@ -34,6 +34,12 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
+  Future<FirebaseUser> loginWithFacebook() async {
+    user = await _authRepository.getFacebookLogin();
+    return user;
+  }
+
+  @action
   Future logout() async {
     await _authRepository.logout();
   }

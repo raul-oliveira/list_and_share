@@ -8,6 +8,7 @@ import 'package:list_and_share/app/modules/login/pages/login_page/components/cre
 import 'package:list_and_share/app/modules/login/pages/login_page/components/divider_widget.dart';
 import 'package:list_and_share/app/modules/login/pages/login_page/components/google_button_widget.dart';
 import 'package:list_and_share/app/modules/login/components/title_widget.dart';
+import 'components/facebook_button_widget.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -59,7 +60,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     GoogleButtonWidget(
                       onTap: controller.loginWithGoogle,
                     ),
-                    // FacebookButtonWidget(),
+                    FacebookButtonWidget(
+                      onTap: controller.loginWithFacebook,
+                    ),
                     SizedBox(height: height * .055),
                     CreateAccountLabelWidget(),
                   ],
