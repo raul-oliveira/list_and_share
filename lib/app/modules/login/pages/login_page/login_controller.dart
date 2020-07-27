@@ -18,7 +18,7 @@ abstract class _LoginControllerBase with Store {
 
     try {
       await auth.loginWithGoogle();
-      Modular.to.pushReplacementNamed('/myLists');
+      Modular.to.pushNamedAndRemoveUntil('/myLists', (route) => false);
     } catch (e) {
       setLoading(false);
     }

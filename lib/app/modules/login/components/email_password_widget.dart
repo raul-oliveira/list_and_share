@@ -1,5 +1,3 @@
-import 'dart:wasm';
-
 import 'package:flutter/material.dart';
 
 import 'entry_field_widget.dart';

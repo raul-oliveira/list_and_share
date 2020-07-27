@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:list_and_share/app/modules/login/pages/welcome_page/components/label_widget.dart';
 import 'package:list_and_share/app/modules/login/pages/welcome_page/components/signup_button_widget.dart';
 import 'package:list_and_share/app/modules/login/components/title_widget.dart';
 import 'components/welcome_page_submit_button_widget.dart';
