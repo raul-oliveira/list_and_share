@@ -37,6 +37,12 @@ abstract class _AuthControllerBase with Store {
   Future logout() async {
     await _authRepository.logout();
   }
+
+  @action
+  Future createUserWithEmailAndPassword(String email, String password) async {
+    user =
+        await _authRepository.createUserWithEmailAndPassword(email, password);
+  }
 }
 
 enum AuthStatus { loading, loggedIn, loggedOut }

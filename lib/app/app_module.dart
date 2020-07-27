@@ -23,8 +23,7 @@ class AppModule extends MainModule {
   List<Router> get routers => [
         Router('/', child: (_, args) => SplashPage()),
         Router('/myLists', module: MyListsModule()),
-        Router('/login',
-            module: LoginModule(), transition: TransitionType.noTransition),
+        Router('/login', module: LoginModule()),
       ];
 
   @override

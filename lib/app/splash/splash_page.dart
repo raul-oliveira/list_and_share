@@ -22,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
       if (_auth.status == AuthStatus.loggedIn) {
         Modular.to.pushReplacementNamed('/myLists');
       } else if (_auth.status == AuthStatus.loggedOut) {
-        Modular.to.pushReplacementNamed('/login');
+        Modular.to.pushReplacementNamed('/login/welcome');
       }
     });
   }
