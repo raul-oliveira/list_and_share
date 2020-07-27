@@ -20,7 +20,8 @@ class MyListItemWidget extends StatelessWidget {
           style: TextStyle(fontSize: 16),
         ),
       ),
-      subtitle: Text('${item.percentConcluded}% - ${item.briefDescription}...'),
+      subtitle: Text(
+          '${item.percentConcluded.toStringAsFixed(2)}% - ${item.briefDescription}...'),
       trailing: controller.store.createdByUser(item.createdBy)
           ? IconButton(
               icon: Icon(Icons.delete),

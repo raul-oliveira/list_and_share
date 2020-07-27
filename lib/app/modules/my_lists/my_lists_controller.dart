@@ -24,10 +24,7 @@ abstract class _MyListsControllerBase with Store {
   @action
   Future addList() async {
     var listName = newlistNameController.value.text;
-    await _listsService.createList(new ListModel(
-      title: listName,
-      briefDescription: 'Fresh list',
-    ));
+    await _listsService.createList(new ListModel(title: listName));
   }
 
   @action

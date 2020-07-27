@@ -8,8 +8,6 @@ class ListModel {
   int id;
   List<dynamic> accessHeader;
   String title;
-  double percentConcluded;
-  String briefDescription;
   List<ListItemModel> items;
   List<UserAccess> access;
   Timestamp creationDate;
@@ -21,8 +19,6 @@ class ListModel {
     this.id,
     this.accessHeader,
     this.title,
-    this.percentConcluded,
-    this.briefDescription,
     this.items,
     this.creationDate,
     this.createdBy,
@@ -32,6 +28,21 @@ class ListModel {
   }) {
     this.access ??= new List<UserAccess>();
     this.items ??= new List<ListItemModel>();
+  }
+
+  double get percentConcluded {
+    var total = items.length;
+    if (total == 0) return 0;
+
+    var checked =
+        items.fold(0, (prev, element) => prev + (element.checked ? 1 : 0));
+    return (checked / total) * 100;
+  }
+
+  String get briefDescription {
+    if (items.isEmpty) return 'Empty';
+    var todos = items.map((e) => e.description).join(', ');
+    return todos.substring(0, todos.length > 50 ? 50 : todos.length);
   }
 
   Map<String, dynamic> toMap() {
@@ -57,8 +68,6 @@ class ListModel {
       id: map['id'],
       accessHeader: map['accessHeader'],
       title: map['title'],
-      percentConcluded: map['percentConcluded'],
-      briefDescription: map['briefDescription'],
       items: List<ListItemModel>.from(
           map['items']?.map((x) => ListItemModel.fromMap(x))),
       access: List<UserAccess>.from(
