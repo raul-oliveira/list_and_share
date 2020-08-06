@@ -128,6 +128,14 @@ mixin _$MyListsStore on _MyListsStoreBase, Store {
     return _$incrementCountAsyncAction.run(() => super.incrementCount());
   }
 
+  final _$removeTodoItemAsyncAction =
+      AsyncAction('_MyListsStoreBase.removeTodoItem');
+
+  @override
+  Future<dynamic> removeTodoItem(int id) {
+    return _$removeTodoItemAsyncAction.run(() => super.removeTodoItem(id));
+  }
+
   @override
   String toString() {
     return '''

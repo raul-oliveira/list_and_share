@@ -41,5 +41,46 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<!--
+		<dict>
+		... Some other CFBundleURLTypes definition.
+		</dict>
+		-->
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!-- TODO Replace this value: -->
+				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+				<string>com.googleusercontent.apps.506184825309-79e04orobpprphgol62qhrp0gn9iadsn</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!--
+				Replace "000000000000" with your Facebook App ID here.
+				**NOTE**: The scheme needs to start with `fb` and then your ID.
+				-->
+				<string>fb2993756434054977</string>
+			</array>
+		</dict>
+	</array>
+
+	<key>FacebookAppID</key>
+	<string>2993756434054977</string>
+	<key>FacebookDisplayName</key>
+	<string>List and share</string>
+
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>

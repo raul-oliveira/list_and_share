@@ -32,6 +32,23 @@ mixin _$LoginController on _LoginControllerBase, Store {
     return _$loginWithGoogleAsyncAction.run(() => super.loginWithGoogle());
   }
 
+  final _$loginWithFacebookAsyncAction =
+      AsyncAction('_LoginControllerBase.loginWithFacebook');
+
+  @override
+  Future<dynamic> loginWithFacebook() {
+    return _$loginWithFacebookAsyncAction.run(() => super.loginWithFacebook());
+  }
+
+  final _$loginWithEmailAndPasswordAsyncAction =
+      AsyncAction('_LoginControllerBase.loginWithEmailAndPassword');
+
+  @override
+  Future<dynamic> loginWithEmailAndPassword() {
+    return _$loginWithEmailAndPasswordAsyncAction
+        .run(() => super.loginWithEmailAndPassword());
+  }
+
   final _$_LoginControllerBaseActionController =
       ActionController(name: '_LoginControllerBase');
 

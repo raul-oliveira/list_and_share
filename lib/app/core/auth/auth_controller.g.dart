@@ -47,6 +47,24 @@ mixin _$AuthController on _AuthControllerBase, Store {
     return _$loginWithGoogleAsyncAction.run(() => super.loginWithGoogle());
   }
 
+  final _$loginWithFacebookAsyncAction =
+      AsyncAction('_AuthControllerBase.loginWithFacebook');
+
+  @override
+  Future<FirebaseUser> loginWithFacebook() {
+    return _$loginWithFacebookAsyncAction.run(() => super.loginWithFacebook());
+  }
+
+  final _$loginWithEmailAndPasswordAsyncAction =
+      AsyncAction('_AuthControllerBase.loginWithEmailAndPassword');
+
+  @override
+  Future<FirebaseUser> loginWithEmailAndPassword(
+      {String email, String password}) {
+    return _$loginWithEmailAndPasswordAsyncAction.run(() =>
+        super.loginWithEmailAndPassword(email: email, password: password));
+  }
+
   final _$logoutAsyncAction = AsyncAction('_AuthControllerBase.logout');
 
   @override
